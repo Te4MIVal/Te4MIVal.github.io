@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Te4MIVal的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="单汇编ARM存储系统访问框架12345678910111213141516171819	AREA RESET ,CODE	EXPORT __Vectors	EXPORT Reset_Handler__Vectors	DCD __initial_sp		DCD Reset_Handler			Reset_Handler PROC			NOP	...	ENDP	AREA STACK,DATA			SP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Te4MIVal的个人博客">
+<meta property="og:url" content="http://example.com/2023/03/17/%E6%B1%87%E7%BC%96/index.html">
+<meta property="og:site_name" content="Te4MIVal的个人博客">
+<meta property="og:description" content="单汇编ARM存储系统访问框架12345678910111213141516171819	AREA RESET ,CODE	EXPORT __Vectors	EXPORT Reset_Handler__Vectors	DCD __initial_sp		DCD Reset_Handler			Reset_Handler PROC			NOP	...	ENDP	AREA STACK,DATA			SP">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-17T14:27:55.649Z">
+<meta property="article:modified_time" content="2023-03-08T03:19:36.991Z">
+<meta property="article:author" content="Te4MIVal">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Te4MIVal的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Te4MIVal的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-汇编" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/03/17/%E6%B1%87%E7%BC%96/" class="article-date">
+  <time class="dt-published" datetime="2023-03-17T14:27:55.649Z" itemprop="datePublished">2023-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="单汇编"><a href="#单汇编" class="headerlink" title="单汇编"></a>单汇编</h1><h2 id="ARM存储系统访问"><a href="#ARM存储系统访问" class="headerlink" title="ARM存储系统访问"></a>ARM存储系统访问</h2><h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">	AREA RESET ,CODE</span><br><span class="line">	EXPORT __Vectors</span><br><span class="line">	EXPORT Reset_Handler</span><br><span class="line">__Vectors</span><br><span class="line">	DCD __initial_sp	</span><br><span class="line">	DCD Reset_Handler	</span><br><span class="line">		</span><br><span class="line">Reset_Handler PROC		</span><br><span class="line">	NOP</span><br><span class="line"></span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line">	ENDP</span><br><span class="line"></span><br><span class="line">	AREA STACK,DATA		</span><br><span class="line">	SPACE 0x200			</span><br><span class="line">__initial_sp</span><br><span class="line">						</span><br><span class="line">		END</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="区域"><a href="#区域" class="headerlink" title="区域"></a>区域</h3><p>ROM 代码区 0x08000000</p>
+<p>RAM 数据区  0x02000000</p>
+<p>代码本身也按照0x格式存储在代码区，但例如DCB,DCW,DCD等伪指令不占用</p>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p>char DCB		（define char byte） 1</p>
+<p>short DCW		(short)			2</p>
+<p>long DCD	（double word）	4</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">X DCB 5 </span><br><span class="line">y DCW 0x1234</span><br><span class="line">z </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">	AREA RESET ,CODE</span><br><span class="line">	EXPORT __Vectors</span><br><span class="line">	EXPORT Reset_Handler</span><br><span class="line">__Vectors</span><br><span class="line">	DCD __initial_sp	//从0X08000000开始，两个四字节的定义</span><br><span class="line">	DCD Reset_Handler</span><br><span class="line">		</span><br><span class="line">Reset_Handler PROC</span><br><span class="line">	NOP					//实际NOP从0x08000008开始</span><br><span class="line">	</span><br><span class="line">X	DCB 5</span><br><span class="line">Y	DCW 0xAB</span><br><span class="line">Z 	DCD 0X12345678</span><br><span class="line">	</span><br><span class="line">	B .</span><br><span class="line">	ENDP</span><br><span class="line">		</span><br><span class="line">	AREA STACK,DATA</span><br><span class="line">	SPACE 0x100</span><br><span class="line">__initial_sp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		END</span><br></pre></td></tr></table></figure>
+
+<h3 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h3><p>32位地址32位总线，32&#x2F;8&#x3D;4，即一次可传输四个字节，每次取址都是四的倍数，要求尽可能在一次取址中取完，对于不满的进行对其补0</p>
+<p>如 DCW 0xAB(两字节) DCD 0x12345678（四字节），假设AB起始地址已对齐，则</p>
+<p>AB 00 00 00 78 56 34 12 (AB 00为数据 00 00为对齐补0)</p>
+<p>再例 DCB 5 DCD 12345678,则</p>
+<p>07 00 00 00 78 56 34 12（00 00 00 00为补齐）</p>
+<p>DCB 5 DCW 0xAB，则</p>
+<p>05 00 AB 00</p>
+<h3 id="变量与数组"><a href="#变量与数组" class="headerlink" title="变量与数组"></a>变量与数组</h3><p>X DCB 0X5</p>
+<p>X存储的为整个数据的首地址</p>
+<p>X DCB 1,2,3</p>
+<p>含义参见C中数组定义</p>
+<h3 id="空间分配"><a href="#空间分配" class="headerlink" title="空间分配"></a>空间分配</h3><p>A SPACE 16</p>
+<p>分配16个字节的空间，初始赋值为0</p>
+<h3 id="寄存器种类"><a href="#寄存器种类" class="headerlink" title="寄存器种类"></a>寄存器种类</h3><h4 id="R15-PC"><a href="#R15-PC" class="headerlink" title="R15-PC"></a>R15-PC</h4><p>存储程序指针，永远指向正在执行的指令之后一条指令的位置（下一指令组成的地址的开头）</p>
+<h4 id="R14-LR"><a href="#R14-LR" class="headerlink" title="R14-LR"></a>R14-LR</h4><p>使用BL跳转指令时记录执行完外部函数跳转回来的位置</p>
+<h4 id="R13-SP"><a href="#R13-SP" class="headerlink" title="R13-SP"></a>R13-SP</h4><p>栈（stack）指针（pointer），初始指向0x02000000</p>
+<h3 id="MOV-Move"><a href="#MOV-Move" class="headerlink" title="MOV(Move)"></a>MOV(Move)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV R1,R2		//R1=R2</span><br><span class="line">MOV R3 , #0X12	//R3=18</span><br></pre></td></tr></table></figure>
+
+<p>#为立即数，范围为0x00000000<del>0x11111111（0</del>255）即一字节</p>
+<h3 id="LDR-Load"><a href="#LDR-Load" class="headerlink" title="LDR(Load)"></a>LDR(Load)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LDR R0,X	//用法同MOV,将X开始的四个字节内容给R0</span><br><span class="line">LDR R0,=X	//将X的地址给R0</span><br><span class="line">LDR R0,=0x0A	立即数赋值</span><br><span class="line">LDR R1,[0X0800000A]	//将目标地址开始的四个字节的内容加载至R1</span><br><span class="line">LDR R0,[R3]		//将R3地址起始的四字节加载至R0</span><br><span class="line">LDR R0,[R4,#4]	//R4为基址，#4为偏址，相加的和为最终地址（类似数组地址加法）</span><br><span class="line">LDR R0,[R5,R6]	//同上一个,但是以R6数据作为偏移</span><br></pre></td></tr></table></figure>
+
+<p>LDR赋值范围为四字节（32位）</p>
+<p>注意取出的四字节赋值后依旧遵循高低位的排列顺序！！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">【后索引】LDR R1,[R2],#4	//在执行完常规R2加载至R1后令R2+4（可实现连续读取）</span><br><span class="line">【前索引】LDR R1，[R2,#4]!	//在执行完R2+4加载至R1后令R2+4</span><br></pre></td></tr></table></figure>
+
+<p>前后索引可参考c语言i++和++i</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LDRB Rd,[Rn,offset]		//从地址后取字节</span><br><span class="line">LDRH Rd,[Rn,offset]		//从地址后取半字</span><br><span class="line">LDRD RdL,RdH[Rn,offset]		//从地址后取双字（双子16字节需要两个寄存器存储）</span><br></pre></td></tr></table></figure>
+
+<h3 id="STR-Store"><a href="#STR-Store" class="headerlink" title="STR(Store)"></a>STR(Store)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">STR R1,[R2]			//将R1存储至R2所在地址</span><br><span class="line">和LDR一样存在STRH,STRB,STRD等变化</span><br></pre></td></tr></table></figure>
+
+<p>和LDR的区分可以用从寄存器到存储器是“存储”，从存储器到寄存器是“加载”</p>
+<h3 id="LDM-load-Multi"><a href="#LDM-load-Multi" class="headerlink" title="LDM(load Multi-)"></a>LDM(load Multi-)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LDM R1,&#123;R2,R3,R4&#125;	//从R2地址开始将后面依次三个字赋给R2 R3 R4</span><br><span class="line">&#123;	Z DCD 0X11111111,0X22222222,0X33333333</span><br><span class="line">	LDR R1,=Z				//R2 R3 R4依次为三个值</span><br><span class="line">	LDM R1,&#123;R2,R3,R4&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：与排列顺序无关，系统会制动从小到大排序，也可使用{R2-R4表示范围}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LDMIA R1,&#123;R1,R2,R3&#125;		//同普通LDM</span><br><span class="line">LDMDB R1,&#123;R1,R2,R3&#125;		//同LDM，但是递减</span><br><span class="line">LDMIA R1!,&#123;R1,R2,R3&#125;	//在赋值后(After)R1增加(Increase)12</span><br><span class="line">LDMDB R1!,&#123;R1,R2,R3&#125;	//在赋值前(Before)R1减小(Decrease)12</span><br></pre></td></tr></table></figure>
+
+<p>！意味改变地址，且地址的改变量都等于后面跟随的长度，为4的倍数</p>
+<h3 id="栈操作"><a href="#栈操作" class="headerlink" title="栈操作"></a>栈操作</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PUSH &#123;R0&#125;	//将R0中的数据置于栈中，并令R13-sp指针R13=R13-4</span><br><span class="line">POP &#123;R0&#125;	//为push的逆操作，将R13后的四个字节置于R0并R13=R13+4</span><br><span class="line">PUSH &#123;R2,R3,R4&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="算数逻辑运算"><a href="#算数逻辑运算" class="headerlink" title="算数逻辑运算"></a>算数逻辑运算</h2><h3 id="标志位xPSR"><a href="#标志位xPSR" class="headerlink" title="标志位xPSR"></a>标志位xPSR</h3><p>N(Negative)	负数位，运算结果为负数则置为1</p>
+<p>Z(Zero)			零位，运算结果为零则置为1</p>
+<p>C(Carry)		  进位，最高位产生进位置为1</p>
+<p>V(Overflow)	溢出，运算超过寄存器范围则产生溢出置1</p>
+<p>标志位仅在有相关指令时改变，否则一直保留上一个数据</p>
+<h3 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h3><p>正数的补码为本身，负数的补码(32位补码)为0x100000000-|负数|</p>
+<p>【8位补码】-1-&gt;(0x100-1)-&gt;0xFF</p>
+<p>【32位补码】-8-&gt;(0x100000000-8)-&gt;0XFFFFFFF8 -3-&gt;0xFFFFFFFD -1-&gt;0xFFFFFFFF</p>
+<p>R的储存范围为-2^31~2^31-1,正好补码填充2^32整个数域</p>
+<p>对于32位而言，0x80000000为所能表示最小的数(0x8&#x3D;1000)，大于此值的都为负数且递增</p>
+<p>N：补码的最高位为符号位，置1为负数（二进制表示），与N相同</p>
+<p>C：原码加对应的补码输出为0，C为0(0100+1100-&gt;10000)，C为0</p>
+<p>溢出是表示数结果判断是否在范围内，进位是看相加后未转换的结果是否进位</p>
+<p>二进制负数补码可简化为正数取反加1</p>
+<h3 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ADD R1,R2		//R1=R1+R2</span><br><span class="line">ADD R1,R2,R3	//R1=R2+R3</span><br><span class="line">ADD R1,#imm		//R1=R1+imm</span><br><span class="line">ADD R1,R2,#imm	//R1=R2+imm</span><br><span class="line">ADDS			</span><br></pre></td></tr></table></figure>
+
+<p>imm范围为0x000~0xFFF</p>
+<p>ADDS除了正常的ADD效果，还影响标志位</p>
+<h3 id="ADC"><a href="#ADC" class="headerlink" title="ADC"></a>ADC</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ADC R1,R2		//R1=R1+R2+C</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/*用32位寄存器设计一个64位加法程序R*/</span><br><span class="line">/*R1R2表示第一个加数的高低位，同理R3R4,用R5R6表示结果的高低位*/</span><br><span class="line">ADDS R6,R2,R4</span><br><span class="line">ADC R5,R1,R3</span><br><span class="line">/*即如果有进位R2+R4有进位，则C置1，在后面高位运算时加上进位的1*/</span><br></pre></td></tr></table></figure>
+
+<h3 id="SUB"><a href="#SUB" class="headerlink" title="SUB"></a>SUB</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SUB R1,R2	//R1=R1-R2</span><br><span class="line">SBC R1,R2	//R1=R1-R2-C(理解同ADC)</span><br></pre></td></tr></table></figure>
+
+<h3 id="MUL"><a href="#MUL" class="headerlink" title="MUL"></a>MUL</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MUL R1,R2		//R1=R1*R2</span><br><span class="line">MUL R1,R2,R3	//R1=R2*R3</span><br></pre></td></tr></table></figure>
+
+<h3 id="DIV"><a href="#DIV" class="headerlink" title="DIV"></a>DIV</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UDIV R1,R2	//R1=R1/R2 无符号除法，所有数据都当作当前的数使用</span><br><span class="line">SDIV R1,R2	//R1=R1/R2 有符号除法，最高位当作符号位，其余的为数据位</span><br></pre></td></tr></table></figure>
+
+<p>注意加减可使用立即数,乘除不可使用立即数</p>
+<h3 id="CMP"><a href="#CMP" class="headerlink" title="CMP"></a>CMP</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CMP R1,R2	//R1-R2,不影响寄存器的值，但影响标志位，可通过Z的值判断是否相等</span><br></pre></td></tr></table></figure>
+
+<h3 id="AND"><a href="#AND" class="headerlink" title="AND"></a>AND</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AND R1,R2	//R1=R1&amp;R2 按位与：R1的每一位都是R1R1相应各位的与</span><br><span class="line">AND R1,R2,R3</span><br><span class="line">AND R1,R2,#imm</span><br><span class="line">ANDS		//同AND,但影响标志位</span><br></pre></td></tr></table></figure>
+
+<h3 id="OR"><a href="#OR" class="headerlink" title="OR"></a>OR</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ORR R1,R2	//R1=R1|R2	按位或：同按位与</span><br><span class="line">ORR R1,R2,R3</span><br><span class="line">ORR R1,R2,#imm</span><br></pre></td></tr></table></figure>
+
+<h3 id="TST"><a href="#TST" class="headerlink" title="TST"></a>TST</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TST R1,R2	//R1&amp;R2,类似ANDS,影响标志位，但不影响寄存器</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/*检测某一个寄存器的第三位位输入是否为1*/</span><br><span class="line">LDR R0,=0x01110010</span><br><span class="line">LDR R1,=0x00100000</span><br><span class="line">TST R1,R2</span><br><span class="line">/*其余位都被R1中的0相与变成0,只有第三位,当为1时整体不为0 Z=0,当为0时整体为0 Z=1,达成判断第三位的功能*/</span><br></pre></td></tr></table></figure>
+
+<h3 id="LSL-LSR"><a href="#LSL-LSR" class="headerlink" title="LSL LSR"></a>LSL LSR</h3><p>（Logic shift left&#x2F;right	逻辑左移&#x2F;右移）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LSL R1,R2,#1	//R1=R2&lt;&lt;1</span><br><span class="line">LSR R1,R2 		//R1=R1&gt;&gt;R2</span><br></pre></td></tr></table></figure>
+
+<p>逻辑左移1位:整体向左移动一位，移出去的成为C，新加入最低位补0</p>
+<p>逻辑左移n位:等同于n次左移一位</p>
+<p>右移同理，最高位补0</p>
+<p>10001101	(&lt;&lt;2)	-&gt;	00110100 C&#x3D;0</p>
+<h3 id="ASR"><a href="#ASR" class="headerlink" title="ASR"></a>ASR</h3><p>(Arithmetic Shift Right	算数右移)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ASR R1,R2		</span><br></pre></td></tr></table></figure>
+
+<p>同逻辑位移，但保留最高位符号位</p>
+<p>110001111 (&gt;&gt;2)	-&gt;	100100011</p>
+<p>左移相当于乘2，右移相当于除2，无符号可直接用LSR&#x2F;L，但有符号必须用ASR</p>
+<p>没有ASL指令，ASL和LSL指令完全一致</p>
+<h3 id="ROR"><a href="#ROR" class="headerlink" title="ROR"></a>ROR</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROR R1,R2</span><br></pre></td></tr></table></figure>
+
+<p>循环位移，移出的填到高位，同时给C</p>
+<h3 id="RRX"><a href="#RRX" class="headerlink" title="RRX"></a>RRX</h3><p>同ROR，但将C当作最低位参与循环</p>
+<h2 id="转移控制指令"><a href="#转移控制指令" class="headerlink" title="转移控制指令"></a>转移控制指令</h2><h3 id="B"><a href="#B" class="headerlink" title="B"></a>B</h3><p>（Branch 跳转指令）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">B L1		//跳转到L1标号的位置(后接地址)</span><br><span class="line">BX R1		//跳转到寄存器R1记录的地址(后接寄存器)</span><br><span class="line">BL L1		//跳转并记录下一个地址记录在R14(LR)中,在执行完外部指令时回到该位置(在外部指令后加BX LR)</span><br><span class="line">BLX R1		//同BL,但返回的标志地址存在R1而非LR中</span><br></pre></td></tr></table></figure>
+
+<p>B	.的意义是在此句中循环,等同与LL		B LL</p>
+<h2 id="条件指令"><a href="#条件指令" class="headerlink" title="条件指令"></a>条件指令</h2><p>在常规指令后加上判断符后缀</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">EQ	相等	Z==1</span><br><span class="line">NE  不等	Z！=1</span><br><span class="line">HI	无符号大于		 C==1&amp;&amp;Z==0</span><br><span class="line">LS 	无符号小于等于		C==0&amp;&amp;Z==1</span><br><span class="line">GE 	无符号大于等于		N==V</span><br><span class="line">LT	带符号小于		 N!=V</span><br><span class="line">GT	带符号大于		 Z==0&amp;&amp;N==V</span><br><span class="line">LE	带符号小于等于		Z==1||N!=V</span><br></pre></td></tr></table></figure>
+
+<p>不需要专门记忆涉及的标志位，只需要使用CMP指令，再在下一条指令后加条件即可</p>
+<h2 id="流程图结构"><a href="#流程图结构" class="headerlink" title="流程图结构"></a>流程图结构</h2><p>流程图不可使用寄存器作为变量，在写代码的时候变量替换为寄存器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/*计算1~100的和*/</span><br><span class="line">	MOV R0 ,#0</span><br><span class="line">	MOV R1 ,#0</span><br><span class="line">loop1</span><br><span class="line">	CMP R1,#100</span><br><span class="line">	BHI end		//即为B+HI,在大于时(R1&gt;100)返回</span><br><span class="line">	ADD R0,R1</span><br><span class="line">	ADD R1,#1</span><br><span class="line">	B loop1</span><br><span class="line">	</span><br><span class="line">	end</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/*编写求和函数R0=Sum&#123;R0,R1,R2&#125;*/</span><br><span class="line">	LDR R0,=0</span><br><span class="line">	LDR R1,=1</span><br><span class="line">    LDR R2,=2</span><br><span class="line">    BL SUM</span><br><span class="line">    ADD R0,R0</span><br><span class="line">        </span><br><span class="line">SUM proc</span><br><span class="line">	ADD R0,R1</span><br><span class="line">	ADD RO,R2</span><br><span class="line">	BX LR</span><br><span class="line">	endp</span><br><span class="line">/*BL和BX的搭配使得可以跳转到调用的函数位置并在函数执行完回到LR指向的调用点*/</span><br><span class="line">/*或者用MOV PC LR也可以将程序当前执行指针指向LR存储位置返回*/</span><br><span class="line">/*规范格式要在函数开始与结束的位置加上proc与endp,但并不强制*/</span><br><span class="line">/*规范的子过程要在主过程外,此时需加上PROC ENDP标识符*/</span><br></pre></td></tr></table></figure>
+
+<h3 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h3><p>在一个函数中调用另一个函数，不可使用LR指针返回，会覆盖上一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/*使用寄存器保护LR不被覆盖*/</span><br><span class="line">	BL loop1</span><br><span class="line">	</span><br><span class="line">loop1</span><br><span class="line">	MOV R0 ，LR	//将LR存储到R0中保护</span><br><span class="line">	BL loop2</span><br><span class="line">	BX R0		//返回R0</span><br><span class="line">	</span><br><span class="line">loop2</span><br><span class="line">	BX LR</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/*使用堆栈让LR可逆向读取*/</span><br><span class="line">	BL loop1</span><br><span class="line">	</span><br><span class="line">loop1</span><br><span class="line">	PUSH(LR)	//将LR置于堆栈中</span><br><span class="line">	BL loop2	</span><br><span class="line">	POP (PC)	//读取堆栈，直接让程序指针为上一个LR(或者POP(LR)	BX(LR))</span><br><span class="line">	</span><br><span class="line">loop2</span><br><span class="line">	BL LR</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h3><p>三种传递方式：寄存器，存储器，堆栈</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/*寄存器传参见上例*/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/*存储器传参*/</span><br><span class="line">/*将三个数据的和放到第四个位置*/</span><br><span class="line">XX	DCD 0x12,0X34,0X56,0</span><br><span class="line">	BL loop1</span><br><span class="line">	</span><br><span class="line">loop </span><br><span class="line">	LDR R0,=XX</span><br><span class="line">	LDR R1 [R0]</span><br><span class="line">	LDR R2 [R0,#4]</span><br><span class="line">	LDR R3 [R0,#8]</span><br><span class="line">	ADD R1,R2</span><br><span class="line">	ADD R1,R3</span><br><span class="line">	STR R1 [R0,#12]		//错误,在memory中可以看到R0,#12区域任然为0</span><br><span class="line">	BX LR</span><br><span class="line">/*将数据所在的存储器地址传输到寄存器中，再通过对地址的运算访问数据*/</span><br></pre></td></tr></table></figure>
+
+<p>STR指令写入的R0,#12为ROM区(CODE),为仅读区域不可写入存储的R1</p>
+<p>需要在DATA区开辟区域</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">/*完整代码*/</span><br><span class="line">	AREA RESET ,CODE</span><br><span class="line">	EXPORT __Vectors</span><br><span class="line">	EXPORT Reset_Handler</span><br><span class="line">__Vectors</span><br><span class="line">	DCD __initial_sp	//代码在0X08000000,定义了一个位于0X02000200地址的__initial_sp</span><br><span class="line">	DCD Reset_Handler	//0x08000004,存的是程序的入口地址即PC指针(R15)</span><br><span class="line">		</span><br><span class="line">Reset_Handler PROC		//此时起始为0x08000008</span><br><span class="line">	NOP</span><br><span class="line">XX	DCD 0x12,0X34,0X56,0</span><br><span class="line">	BL loop1</span><br><span class="line">	B .</span><br><span class="line">	ENDP</span><br><span class="line">	</span><br><span class="line">loop </span><br><span class="line">	LDR R0,=XX</span><br><span class="line">	LDR R1 [R0]</span><br><span class="line">	LDR R2 [R0,#4]</span><br><span class="line">	LDR R3 [R0,#8]</span><br><span class="line">	ADD R1,R2</span><br><span class="line">	ADD R1,R3</span><br><span class="line">	LDR R5,=ZZ			//将一个RAM区的地址ZZ赋给R5</span><br><span class="line">	STR R1 [R5]			//将R1存到R5地址,即ZZ的RAM区</span><br><span class="line">	BX LR</span><br><span class="line">						//DATA区的起始地址为0x02000000</span><br><span class="line">	AREA STACK,DATA		//定义了一个名叫STACK(堆栈)的DATA区</span><br><span class="line">	SPACE 0x200			//为STACK开辟了一个200字节的空间</span><br><span class="line">__initial_sp</span><br><span class="line">						//接着上面的STACK区继续分配空间</span><br><span class="line">	AREA dat,DATA		//定义了一个名叫dat的DATA区</span><br><span class="line">ZZ	DCD 0				//因为上面的STACK分配了100字节的空间,dat的起始即ZZ地址为0x02000100</span><br><span class="line">X	DCD	0				//0x02000104</span><br><span class="line">Y	DCD	0</span><br><span class="line"></span><br><span class="line">		END</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/*通过堆栈传输数据*/</span><br><span class="line">    LDR R1,=0x12</span><br><span class="line">    PUSH &#123;R1&#125;</span><br><span class="line">    LDR R1,=0x34</span><br><span class="line">    PUSH &#123;R1&#125;</span><br><span class="line">    LDR R1,=0x56</span><br><span class="line">    PUSH &#123;R1&#125;			//分别将三个加数传输入堆栈</span><br><span class="line">    BL loop</span><br><span class="line">    POP	&#123;R0&#125;			//将函数执行完成的结果从堆栈取出放入R0</span><br><span class="line">    B .</span><br><span class="line"></span><br><span class="line">loop</span><br><span class="line">	POP&#123;R1,R2,R3&#125;		//从堆栈中取出前三个数值赋给R1,R2,R3</span><br><span class="line">	ADD R1,R2</span><br><span class="line">	ADD R1,R3</span><br><span class="line">	PUSH &#123;R1&#125;			//将和返回堆栈</span><br><span class="line">	BX LR</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="联合汇编"><a href="#联合汇编" class="headerlink" title="联合汇编"></a>联合汇编</h1><h2 id="框架-1"><a href="#框架-1" class="headerlink" title="框架"></a>框架</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">/*汇编启动代码starup.s*/</span><br><span class="line">AREA RESET ,CODE</span><br><span class="line">	EXPORT __Vectors</span><br><span class="line">	EXPORT Reset_Handler</span><br><span class="line">__Vectors</span><br><span class="line">	DCD __initial_sp	</span><br><span class="line">	DCD Reset_Handler	//启动文件,地址永远为0x08000004</span><br><span class="line">		</span><br><span class="line">Reset_Handler PROC	</span><br><span class="line">	NOP</span><br><span class="line"></span><br><span class="line">	IMPORT main		//伪指令,告诉汇编程序该地址不在汇编当中,将main函数的地址注入到汇编当中</span><br><span class="line">	LDR R0,=mian	//将注入的main函数地址赋给R0</span><br><span class="line">	BX R0			//跳转到R0位置,即main函数所在位置</span><br><span class="line">	</span><br><span class="line">	B .</span><br><span class="line">	ENDP</span><br><span class="line">	</span><br><span class="line">	AREA STACK,DATA		</span><br><span class="line">	SPACE 0x200			</span><br><span class="line">__initial_sp</span><br><span class="line">			</span><br><span class="line">		END</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/*C程序框架main.c*/</span><br><span class="line">/*循环框架*/</span><br><span class="line">void main()&#123;</span><br><span class="line">	......</span><br><span class="line">	while(1);	//需要一个程序循环,若无内循环则使用while循环,坐拥类似与B .</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>事实上main的意义和之前使用汇编函数(子过程)的意义一致,但前面的IMPORT决定它是外部函数</p>
+<h2 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h2><h3 id="汇编调用C"><a href="#汇编调用C" class="headerlink" title="汇编调用C"></a>汇编调用C</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/*C返回框架*/</span><br><span class="line">void main()&#123;</span><br><span class="line">	......</span><br><span class="line">	return;		//return返回的地址为LR地址等效于BX,这要求转到该函数时指定LR(如BLX),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="C调用汇编"><a href="#C调用汇编" class="headerlink" title="C调用汇编"></a>C调用汇编</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/*对应汇编调用部分*/</span><br><span class="line">	Reset_Handler PROC		//调用C的汇编部分</span><br><span class="line">    NOP</span><br><span class="line">	IMPORT main()</span><br><span class="line">	LDR R0,=main()</span><br><span class="line">	BLX R0</span><br><span class="line">	ENDP</span><br><span class="line">	</span><br><span class="line">	EXPORT asm_func			//汇编中也需要声明该子过程供外部函数调用</span><br><span class="line">asm_func PROC</span><br><span class="line">	BX LR			</span><br><span class="line">	ENDP</span><br><span class="line">	</span><br><span class="line">/*C调用框架*/</span><br><span class="line">extern void asm_func();		//调用需声明汇编中函数(子过程)</span><br><span class="line">void main()&#123;</span><br><span class="line">	asm_func();</span><br><span class="line">	return;					</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*汇编调用使用INPORT声明,被调用使用EXPORT声明,C调用需要extern声明*/</span><br></pre></td></tr></table></figure>
+
+<p>C在编译成汇编的时候,会通过PUSH保护调用C程序的汇编指针,防止C运行的时候LR指针发生覆盖</p>
+<p>可理解为堆栈的出入的有序性使得每个调用与返回的指针一一匹配,类似这种括号的有序匹配形式{ [ ( ) ] }</p>
+<h2 id="传参"><a href="#传参" class="headerlink" title="传参"></a>传参</h2><p>传参时,参数列表的前四个参数保存在R0~R3中,后面的需要手动按先后顺序保留在堆栈中</p>
+<h3 id="汇编向C传参"><a href="#汇编向C传参" class="headerlink" title="汇编向C传参"></a>汇编向C传参</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/*C调用汇编参数*/</span><br><span class="line">/*C部分*/</span><br><span class="line">int sum</span><br><span class="line">void C_FUNC(int a,intb,int c,int d,inte,int f,int g)&#123;</span><br><span class="line">	sum=a+b+c+d+e+f+g;</span><br><span class="line">	while(1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*汇编部分*/</span><br><span class="line">	LDR R0,=0</span><br><span class="line">	.</span><br><span class="line">	.</span><br><span class="line">	.</span><br><span class="line">	LDR R6,=0</span><br><span class="line">	PUSH &#123;R4~R6&#125;		//R0~R3四个参数的值可直接传递,剩下的三个需要手动入栈</span><br><span class="line">	IMPORT C_FUNC</span><br><span class="line">	LDR R9,=C_FUNC</span><br><span class="line">	BX R9</span><br><span class="line"></span><br><span class="line">/*sum可读写,因此存在RAM区,可在0x20000000附近找到*/</span><br></pre></td></tr></table></figure>
+
+<p>关于参数赋值的顺序,通过寄存器的R0,R1,R2,R3(?)将依次先后赋给c参数列表的前四个变量,后面通过堆栈传递的参数则遵照:先入栈,后取出的规律</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/*参数传递赋值演示*/</span><br><span class="line">/*c的参数列表*/</span><br><span class="line">(int a,int b,int c,int d,int e,int f,int g)</span><br><span class="line">/*汇编的传参列表*/</span><br><span class="line">X DCB 1,2,3,4,5,6,7</span><br><span class="line">LDR R10,=X</span><br><span class="line">LDR R0,[R10]</span><br><span class="line">LDR R1,[R10,#1]</span><br><span class="line">LDR R1,[R10,#2]</span><br><span class="line">LDR R1,[R10,#3]</span><br><span class="line">LDR R11,[R10,#4]</span><br><span class="line">PUSH &#123;R11&#125;</span><br><span class="line">LDR R11,[R10,#5]</span><br><span class="line">PUSH &#123;R11&#125;</span><br><span class="line">LDR R11,[R10,#6]</span><br><span class="line">PUSH &#123;R11&#125;</span><br><span class="line">/*则C中abcdefg的数分别为1234765,注意后面为倒叙*/</span><br><span class="line">/*使用push&#123;R1,R2,R3&#125;则等同于依次将R3,R2,R1入栈*/</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="C向汇编传参"><a href="#C向汇编传参" class="headerlink" title="C向汇编传参"></a>C向汇编传参</h3><h4 id="通过RETURN传参"><a href="#通过RETURN传参" class="headerlink" title="通过RETURN传参"></a>通过RETURN传参</h4><p>C使用return返回的数据一定在R0中</p>
+<h4 id="通过函数传参"><a href="#通过函数传参" class="headerlink" title="通过函数传参"></a>通过函数传参</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/*C中函数形式*/</span><br><span class="line">sum=sum_s(1,2,3,4,5,6)</span><br><span class="line">/*汇编中相应求和函数*/</span><br><span class="line">	ADD R9,R0</span><br><span class="line">	ADD R9,R1</span><br><span class="line">	ADD R9,R2</span><br><span class="line">	ADD R9,R3</span><br><span class="line">	POP &#123;R4&#125;</span><br><span class="line">	ADD R9,R4</span><br><span class="line">	POP &#123;R5&#125;</span><br><span class="line">	......</span><br><span class="line">/*传递到汇编中时,前四个参数分别存在R0~R3中,剩下的自动入栈,需要使用POP取出使用,注意顺序*/</span><br></pre></td></tr></table></figure>
+
+<h1 id="硬件设备"><a href="#硬件设备" class="headerlink" title="硬件设备"></a>硬件设备</h1><h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="T1：求n位数和"><a href="#T1：求n位数和" class="headerlink" title="T1：求n位数和"></a>T1：求n位数和</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">/*完整代码*/</span><br><span class="line">	AREA RESET ,CODE</span><br><span class="line">	EXPORT __Vectors</span><br><span class="line">	EXPORT Reset_Handler</span><br><span class="line">__Vectors</span><br><span class="line">	DCD __initial_sp	</span><br><span class="line">	DCD Reset_Handler	</span><br><span class="line">		</span><br><span class="line">Reset_Handler PROC	</span><br><span class="line">	NOP</span><br><span class="line">Z	DCD 180238			//目标计算数字</span><br><span class="line">	LDR R0,Z	;NUM	//先讲Z地址的数据赋给R0</span><br><span class="line">	LDR R1,=6	;i		//R1为循环计数器i,循环六次故共六位,i=6</span><br><span class="line">	LDR R2,=0	;SUM	//R2为求和寄存器</span><br><span class="line">	</span><br><span class="line">	LDR R10,=10			//因为下一步的除法计算需要除10,但UNIV没有立即数,需要指定一个寄存器存10</span><br><span class="line">	</span><br><span class="line">LOOP</span><br><span class="line">	UDIV R3,R0,R10;R3=R0/R10	//R3为除10后取整</span><br><span class="line">	MUL R4,R3,R10				//R4为减去最后一位剩下的数位</span><br><span class="line">	SUB R5,R0,R4				//R5为原数据减去R4,即最低位</span><br><span class="line">	ADD R2,R5					//取出最低位R5后存到sum当中</span><br><span class="line">	LDR R0,[R3]					//将去除最低位后的R0给R3,参与下次循环</span><br><span class="line">	</span><br><span class="line">	SUB R1,#1					//计数位-1</span><br><span class="line">	CMP R1,#0					//比较是否R1是否不为0,不为零则循环</span><br><span class="line">	BNE LOOP</span><br><span class="line">	</span><br><span class="line">	LDR R9,=RESULT				//让R9等于RESULT的地址,STR只能用寄存器</span><br><span class="line">	STR R2,[R9]					//将结果存到RESULT空间(0x20000200)</span><br><span class="line">	</span><br><span class="line">	B .</span><br><span class="line">	ENDP</span><br><span class="line">	</span><br><span class="line">	AREA STACK,DATA		</span><br><span class="line">	SPACE 0x200			</span><br><span class="line">__initial_sp</span><br><span class="line">RESULT DCD 0					//在存储区说明一个RESULT的空间以存储结果			</span><br><span class="line">		END</span><br><span class="line"></span><br><span class="line">/*汇编没有取模指令,因此使用去掉最低位的减法得到余数*/</span><br><span class="line">/*不一定只能求10的余数,如13%3,13-[13/3]*3=1	*/</span><br></pre></td></tr></table></figure>
+
+<h2 id="T2-10000以内3倍数求和"><a href="#T2-10000以内3倍数求和" class="headerlink" title="T2:10000以内3倍数求和"></a>T2:10000以内3倍数求和</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">	AREA RESET ,CODE</span><br><span class="line">	EXPORT __Vectors</span><br><span class="line">	EXPORT Reset_Handler</span><br><span class="line">__Vectors</span><br><span class="line">	DCD __initial_sp	</span><br><span class="line">	DCD Reset_Handler	</span><br><span class="line">		</span><br><span class="line">Reset_Handler PROC		</span><br><span class="line">	</span><br><span class="line">	NOP</span><br><span class="line">	LDR R0,=0			//R0为和SUM</span><br><span class="line">	LDR R1,=1;i			//R1为从1开始递增的i</span><br><span class="line">	LDR R10,=3;temp3	//R3为除法需要的3</span><br><span class="line">	LDR R11,=10000		//R11为总数10000</span><br><span class="line">	</span><br><span class="line">LOOP					//模三判断模块</span><br><span class="line">	UDIV R2,R1,R10		//R2为[i/10]</span><br><span class="line">	MUL	R3,R2,R10		</span><br><span class="line">	SUB R4,R1,R3		//余数=R1-R2*3</span><br><span class="line">	</span><br><span class="line">	CMP R4,#0			//是否余数为0</span><br><span class="line">	ADDEQ R0,R1			//为O则i可被整除加入R0</span><br><span class="line">	</span><br><span class="line">	CMP R1,R11			//比较是否加到10000结束循环</span><br><span class="line">	ADDNE R1,#1</span><br><span class="line">	BNE LOOP</span><br><span class="line">	</span><br><span class="line">	LDR R10,=SUM		//存到SUM中</span><br><span class="line">	STR R0,[R10]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	B .</span><br><span class="line">	ENDP</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	AREA STACK,DATA		</span><br><span class="line">	SPACE 0x200			</span><br><span class="line">__initial_sp</span><br><span class="line">SUM DCD 0				//存储位置SUM的声明</span><br><span class="line">						</span><br><span class="line">		END</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/03/17/%E6%B1%87%E7%BC%96/" data-id="clfcn4i9x0002oou32xem58s1" data-title="" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/03/17/blog/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          blog
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/03/17/2023.3.17%5B%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%5D/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">开始</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/17/2023.3.17%5B%E6%B1%87%E7%BC%96%5D/">基础汇编分享</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/17/blog/">blog</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/17/%E6%B1%87%E7%BC%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/17/2023.3.17%5B%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%5D/">开始</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/17/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 Te4MIVal<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
